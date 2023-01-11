@@ -1,12 +1,21 @@
 import FullCalendar, { whenTransitionDone } from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin! 
 import timeGridPlugin from '@fullcalendar/timegrid';
-import "./calendar.css"
 import React, {useState, useEffect, useContext} from 'react'
-
-import { list1, list2, list3 } from './temp';
 import AuthContext from '../context/AuthContext';
-
+import {css, jsx} from "@emotion/react"
+import {PurpleButtonStyle } from '../components/EmotionStyles';
+/** @jsxImportSource @emotion/react */
+const CalendarStyle = css`
+  background-color: white;
+  color:black;
+  padding-top: 0;
+  padding-bottom: 10px;
+  min-width:60vw;
+  text-align:center;
+  padding-left: 10px;
+  padding-right: 5px;
+`
 const Calendar2 = () => {
    // calendarRef = React.useRef()
     let {events, getEvents} = useContext(AuthContext);
@@ -15,37 +24,30 @@ const Calendar2 = () => {
 
 
   return (
-    <div className="calendar">
-
-<button onClick={getEvents}>
-      Generate
-    </button>
-            <FullCalendar
-            plugins={[ timeGridPlugin, dayGridPlugin ]}
-            //ref= {calendarRef}
-            initialView="timeGridWeek"
-            slotMinTime={'08:00'}
-            slotMaxTime= {'20:00'}
-            weekends={true}
-            allDaySlot={false}
-            slotDuration={"01:00:00"}
-            events= {events}
-            
-            displayEventTime = {true}
-            
-            headerToolbar={
-              {center: 'dayGridMonth, timeGridWeek, timeGridDay', 
-
-          }}
+    <div style={{display:"flex", alignItems:"center", flexDirection:"column"}}>
+      <div css={CalendarStyle}>
+        <button onClick={getEvents} css={PurpleButtonStyle} style={{margin:"20px"}}>
+          Generate
+        </button>
+        <FullCalendar
+          plugins={[ timeGridPlugin, dayGridPlugin ]}
+          //ref= {calendarRef}
+          initialView="timeGridWeek"
+          slotMinTime={'08:00'}
+          slotMaxTime= {'26:00'}
+          weekends={true}
+          allDaySlot={false}
+          slotDuration={"01:00:00"}
+          events= {events}
           
+          displayEventTime = {true}
           expandRows={true}
-            height = {'80vh'}
-            
-            //dayHeaderFormat={}
-            
-            />
-            
-        </div>
+          height = {'80vh'}
+          //dayHeaderFormat={}
+        />
+        
+      </div>
+    </div>
   )
 }
 

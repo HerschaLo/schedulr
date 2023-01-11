@@ -1,13 +1,19 @@
 import React, {useState, useEffect, useContext, useRef} from 'react'
 import AuthContext from '../context/AuthContext';
-import Footer from '../components/footer.js'
-import './Userform.css'
-import NavBar from '../components/nav-bar.js';
 import { useNavigate } from 'react-router-dom';
+import { CenteredBoxStyle, PurpleButtonStyle } from './EmotionStyles';
+import {css, jsx} from "@emotion/react"
+/** @jsxImportSource @emotion/react */
 
-
-
-
+const PreferenceFormStyle = css`
+display:flex;
+flex-direction:column;
+align-items:center;
+padding:25px;
+& > label{
+    font-size:24px
+}
+`
 function Userform() {
 
     const navigate = useNavigate();
@@ -55,7 +61,6 @@ function Userform() {
 
     
     const handleSubmit = (e) =>  {
-        e.preventDefault();
         const lec108value = lec108.current.value;
         const tut108value = tut108.current.value;
         const lec148value = lec148.current.value;
@@ -205,112 +210,92 @@ function Userform() {
     
 
     return (
-        
-    <div className='userform'>
-        
-        
-        <div className='form-section'>
-            <div className='form'>
-            
-            
-            <form className='input' onSubmit={handleSubmit}>
-            
-            
-            <label>Which Courses are you currently taking?</label>
-            <label className='checkInput'>
-                <input  type="checkbox" name='csc108' checked={checked108} onChange={handleChange1}/>
-                CSC108
-                <Dropdown id = 'lec108' reference={lec108} timings = {getTimings("LEC",7)}/>
-                <Dropdown id = 'tut108' reference={tut108} timings = {getTimings("PRA",23)}/>
+        <div style={{display:"flex",justifyContent:"center", alignItems:"center", padding:"20px"}}>
+            <div css={CenteredBoxStyle} >
+            <form onSubmit={handleSubmit} css={PreferenceFormStyle} action="/schedule">   
+                <h2 style={{fontSize:"72px"}}>Set Schedule Preferences</h2>
+                <label>Which Courses are you currently taking?</label>
+                <div stlye={{display:"flex", flexDirection:"row", flexWrap:"wrap"}}>
+                    <input  type="checkbox" name='csc108' checked={checked108} onChange={handleChange1}/>
+                    CSC108
+                    <Dropdown id = 'lec108' reference={lec108} timings = {getTimings("LEC",7)}/>
+                    <Dropdown id = 'tut108' reference={tut108} timings = {getTimings("PRA",23)}/>
+                    <input  type="checkbox" name='csc148' checked={checked148} onChange={handleChange2} />
+                    CSC148
+                    <Dropdown id = 'lec148' reference={lec148} timings = {getTimings("LEC",7)}/>
+                    <Dropdown id = 'tut148' reference={tut148} timings = {getTimings("PRA",25)}/>
+                    <input  type="checkbox" name='mat135' checked={checked135} onChange={handleChange3} />
+                    MAT135
+                    <Dropdown id = 'lec135' reference={lec135} timings = {getTimings("LEC",9)}/>
+                    <Dropdown id = 'tut135' reference={tut135} timings = {getTimings("TUT",36)}/>
+                    <input  type="checkbox" name='mat136' checked={checked136} onChange={handleChange4}/>
+                    MAT136
+                    <Dropdown id = 'lec136' reference={lec136} timings = {getTimings("LEC",2)}/>
+                    <Dropdown id = 'tut136' reference={tut136} timings = {getTimings("TUT",9)}/>
+                {/* <label>
+                    <input  type="checkbox" name='mat137' checked={checked137} onChange={handleChange5} />
+                    Mat137
+                    <Dropdown id = 'lec137' timings = {getTimings("LEC",2)}/>
+                    <Dropdown id = 'tut137' timings = {getTimings("TUT",7)}/>
+                </label> */}
+                <label>
+                    <input  type="checkbox" name='mat102' checked={checked102} onChange={handleChange6}/>
+                    MAT102
+                    <Dropdown id = 'lec102' reference={lec102} timings = {getTimings("LEC",9)}/>
+                <Dropdown id = 'tut102' reference={tut102} timings = {getTimings("TUT",36)}/>
+                </label>
+                <label>
+                    <input type="checkbox" name='sta107' checked={checked107} onChange={handleChange7}/>
+                    STA107  
+                    <Dropdown id = 'lec107' reference={lec107} timings = {getTimings("LEC",4)}/>
+                    <Dropdown id = 'tut107' reference={lec107} timings = {getTimings("TUT",16)}/>
+                </label>
+                </div>
+                <hr></hr>
 
-            </label>
-            <label className='checkInput'>
-                <input  type="checkbox" name='csc148' checked={checked148} onChange={handleChange2} />
-                CSC148
-                <Dropdown id = 'lec148' reference={lec148} timings = {getTimings("LEC",7)}/>
-                <Dropdown id = 'tut148' reference={tut148} timings = {getTimings("PRA",25)}/>
-            </label>
-            <label className='checkInput'>
-                <input  type="checkbox" name='mat135' checked={checked135} onChange={handleChange3} />
-                MAT135
-                <Dropdown id = 'lec135' reference={lec135} timings = {getTimings("LEC",9)}/>
-                <Dropdown id = 'tut135' reference={tut135} timings = {getTimings("TUT",36)}/>
-            </label >
-            <label className='checkInput' >
-                <input  type="checkbox" name='mat136' checked={checked136} onChange={handleChange4}/>
-                MAT136
-                <Dropdown id = 'lec136' reference={lec136} timings = {getTimings("LEC",2)}/>
-                <Dropdown id = 'tut136' reference={tut136} timings = {getTimings("TUT",9)}/>
-            </label >
-            {/* <label className='checkInput'>
-                <input  type="checkbox" name='mat137' checked={checked137} onChange={handleChange5} />
-                Mat137
-                <Dropdown id = 'lec137' timings = {getTimings("LEC",2)}/>
-                <Dropdown id = 'tut137' timings = {getTimings("TUT",7)}/>
-            </label> */}
-            <label className='checkInput'>
-                <input  type="checkbox" name='mat102' checked={checked102} onChange={handleChange6}/>
-                MAT102
-                <Dropdown id = 'lec102' reference={lec102} timings = {getTimings("LEC",9)}/>
-            <Dropdown id = 'tut102' reference={tut102} timings = {getTimings("TUT",36)}/>
-            </label>
-            <label className='checkInput'>
-                <input type="checkbox" name='sta107' checked={checked107} onChange={handleChange7}/>
-                STA107  
-                <Dropdown id = 'lec107' reference={lec107} timings = {getTimings("LEC",4)}/>
-                <Dropdown id = 'tut107' reference={lec107} timings = {getTimings("TUT",16)}/>
-            </label>
+                <label>Do you prefer to study in the morning, evening or night?</label>
+                
+                <label>
+                    <input type="checkbox" name='morning' checked={morning} onChange={morningChange}/>
+                    Morning
+                </label>
+                <label>
+                    <input type="checkbox" name='afternoon' checked={afternoon} onChange={afternoonChange} />
+                    Afternoon
+                </label>
+                <label>
+                    <input type="checkbox" name='evening' checked={evening} onChange={eveningChange}/>
+                    Evening
+                </label>
 
-            <hr></hr>
+                <hr></hr>
 
-            <label>Do you prefer to study in the morning, evening or night?</label>
-            
-            <label>
-                <input type="checkbox" name='morning' checked={morning} onChange={morningChange}/>
-                Morning
-            </label>
-            <label>
-                <input type="checkbox" name='afternoon' checked={afternoon} onChange={afternoonChange} />
-                Afternoon
-            </label>
-            <label>
-                <input type="checkbox" name='evening' checked={evening} onChange={eveningChange}/>
-                Evening
-            </label>
-
-            <hr></hr>
-
-            <label>What is the maximum amount of hours do you want to study per day?</label>
-            <br></br>
-            <label>
-                <input type="number" name='maxstudy' value={maxTime} min={1} max={12} placeholder='eg: 4' onChange={maxTimeChange} ></input>
-            </label>
-            
-            <hr></hr>
+                <label>What is the maximum amount of hours do you want to study per day?</label>
+                <br></br>
+                <label>
+                    <input type="number" name='maxstudy' value={maxTime} min={1} max={12} placeholder='eg: 4' onChange={maxTimeChange} ></input>
+                </label>
+                
+                <hr></hr>
 
 
-            <label>What is the maximum amount of hours that you want to study continuously?</label>
-            <br></br>
-            <label>
-                <input type="number" name='contstudy' value={contTime} min={1} max={4} onChange={contTimeChange}  placeholder='eg: 3'></input>
-            </label>
+                <label>What is the maximum amount of hours that you want to study continuously?</label>
+                <br></br>
+                <label>
+                    <input type="number" name='contstudy' value={contTime} min={1} max={4} onChange={contTimeChange}  placeholder='eg: 3'></input>
+                </label>
 
-            <hr></hr>
- 
-            <label>
-            <input type="submit" value="Submit"/>
-
-            </label>
+                <hr></hr>
+    
+                <label>
+                <button type="submit" css={PurpleButtonStyle}>Save Preferences</button>
+                </label>
            
             </form>
              
             </div>
 
         </div>
-        
-        <Footer></Footer>
-
-    </div>
   )
 }
 

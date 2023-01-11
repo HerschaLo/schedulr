@@ -74,6 +74,14 @@ class PreferenceSerializer(ModelSerializer):
     
         tstudent.save()
         return tstudent
+
+    def update(self, instance, validated_data):
+        print("update ran on " + str(validated_data))
+        instance.student_max_studytime = validated_data['student_max_studytime']
+        instance.student_time_pref = validated_data['student_time_pref']
+        instance.student_max_timeblock = validated_data['student_max_timeblock']
+        instance.save()
+        return instance
         
        
                 

@@ -1,16 +1,24 @@
 import React, {useState, useEffect, useContext} from 'react'
 import AuthContext from '../context/AuthContext';
-
-import './HomePage.css'
-import NavBar from '../components/nav-bar.js'
 import Footer from '../components/footer.js'
+import { Outlet } from 'react-router-dom';
+import {css, jsx} from "@emotion/react"
+import NavBar from '../components/nav-bar';
+/** @jsxImportSource @emotion/react */
 
-import Calendar2 from '../components/calendar';
+const ViewStyle = css`
+  display: flex;
+  flex-direction: row;
+  width:100vw;
+`
 
-
-const HomePage = () => {
+const CalendarView = css`
+  display:flex;
+  flex-direction: column;
+  width:100%;
+`
+const SchedulePage = () => {
   let [note, setNotes] = useState([]);
-
   let {authTokens, logoutUser, user, getEvents } = useContext(AuthContext);
 
   useEffect(() => {
@@ -45,26 +53,18 @@ const HomePage = () => {
 }
 
   return (
-    <div className='Home'>
-    
-    <NavBar></NavBar>
-    
-    <div className='main-section'>
-      <div className='header'>
-        {/* {user.last_name}, {user.first_name} */}
-
-      </div>
-
-        <Calendar2></Calendar2>
-
-      
-      <Footer></Footer>
-    </div>
-    
+    <div>
+      <div css={ViewStyle}>
+        <NavBar />
+        <div css={CalendarView}>
+          <Outlet/>
+        </div>
+      </div>    
+      <Footer />
     </div>
 
 
   )
 }
 
-export default HomePage
+export default SchedulePage

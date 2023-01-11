@@ -42,7 +42,8 @@ export const AuthProvider = ({children}) => {
         let respone = await fetch('http://127.0.0.1:8000/api/inputPreference/',{
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${authTokens.access}`
             },
             body: JSON.stringify({
                 custom_field: user.username,
@@ -305,7 +306,7 @@ export const AuthProvider = ({children}) => {
              setUser(jwt_decode(data.access));
              localStorage.setItem('authTokens', JSON.stringify(data));
   
-             navigate('/');
+             navigate('/schedule');
          } else {
              alert('incorrect username or password');
          }

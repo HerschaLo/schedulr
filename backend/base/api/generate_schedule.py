@@ -331,7 +331,7 @@ def hours_available(days: dict, maximum_study_time: int) -> dict:
     new_schedule = {k: v for k, v in zip(days.keys(), values)}
 
     for day in days.keys():
-        for hour in range(8, 21):  # change to user start and end time
+        for hour in range(8, 24):  # change to user start and end time
             day_event = days[day][hour]
             if day_event is None:
                 new_schedule[day] += 1
